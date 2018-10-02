@@ -1,0 +1,20 @@
+{
+  "name": "redmarlinchallenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^23.3.2",
+    "@types/node": "^10.11.3",
+    "@types/puppeteer": "^1.6.4",
+    "jest": "^23.6.0",
+    "puppeteer": "^1.8.0",
+    "typescript": "^3.1.1",
+    "wappalyzer": "^5.5.1"
+  }
+}

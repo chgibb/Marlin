@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {                 
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+  },
+  "exclude": [
+    "node_modules",
+    "usr"
+  ]
+}

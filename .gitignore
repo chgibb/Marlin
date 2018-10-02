@@ -1,3 +1,7 @@
+*.js
+*.pdf
+*.jpg
+
 # Logs
 logs
 *.log
