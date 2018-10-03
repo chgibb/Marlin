@@ -1,23 +1,69 @@
-import * as fs from "fs";
 import * as path from "path";
 
 import * as puppeteer from "puppeteer";
 import * as express from "express";
-const Wappalyzer = require("wappalyzer");
+const bodyParser = require("body-parser");
+//const Wappalyzer = require("wappalyzer");
+
+import { BasicURLInfo } from "./../src/basicURLInfo";
+import { RequestBasicURLInfoParams } from "./../src/requestBasicURLInfo";
 
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended : false}));
+
 const port = process.env.PORT || 5000;
 
 console.log("hello world with changes round 3");
 
-app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
+app.get('/basicURLInfo',async (req, res) => {
+    console.log(req.query);
+    if(!req.query)
+    {
+        res.sendStatus(401);
+        return;
+    }
+    try {
+  let params = (<RequestBasicURLInfoParams>req.query);
+  let responseBody : BasicURLInfo = <any>{};
+
+  const browser = await puppeteer.launch({ignoreHTTPSErrors : true});
+  const {page,response,urls} = await collectAllNetworkRequests(browser,params.url);
+
+  responseBody.urls = urls;
+
+  responseBody.remoteAddress = (<any>response).remoteAddress();
+
+  let screen = await page.screenshot({
+      type : "jpeg",
+      quality : 100
+  });
+
+  responseBody.screenShot = screen.toString("base64");
+  responseBody.srcText = await response.text();
+
+  res.status(201);
+  res.json(responseBody);
+  await browser.close();
+}
+catch(err)
+{
+    console.log(err);
+    res.sendStatus(401);
+        return;
+}
+
 });
+
+
 
 app.use(express.static(path.join(__dirname, '../build')));
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
+
+/*
 interface WappalyzeResult
 {
     urls : {
@@ -59,7 +105,7 @@ async function wappalyze(url : string) : Promise<WappalyzeResult>
           return resolve(json);
     });
 }
-
+*/
 async function collectAllNetworkRequests(browser : puppeteer.Browser,url : string) : Promise<{
     page : puppeteer.Page,
     response : puppeteer.Response,
@@ -83,6 +129,7 @@ async function collectAllNetworkRequests(browser : puppeteer.Browser,url : strin
     });
 }
 
+/*
 (async() => {
     const browser = await puppeteer.launch({ignoreHTTPSErrors : true});
     const {page,response,urls} = await collectAllNetworkRequests(browser,"https://www.wikipedia.com");
@@ -111,3 +158,4 @@ async function collectAllNetworkRequests(browser : puppeteer.Browser,url : strin
 })().catch(err => {
     console.error(err);
 });
+*/
