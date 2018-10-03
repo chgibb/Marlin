@@ -2,6 +2,9 @@
 *.pdf
 *.jpg
 
+dist/
+build/
+
 # Logs
 logs
 *.log

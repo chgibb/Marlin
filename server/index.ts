@@ -1,7 +1,22 @@
 import * as fs from "fs";
+import * as path from "path";
 
 import * as puppeteer from "puppeteer";
+import * as express from "express";
 const Wappalyzer = require("wappalyzer");
+
+const app = express();
+const port = process.env.PORT || 5000;
+
+console.log("hello world with changes round 3");
+
+app.get('/api/hello', (req, res) => {
+  res.send({ express: 'Hello From Express' });
+});
+
+app.use(express.static(path.join(__dirname, '../build')));
+
+app.listen(port, () => console.log(`Listening on port ${port}`));
 
 interface WappalyzeResult
 {

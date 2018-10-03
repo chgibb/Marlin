@@ -8,18 +8,24 @@
     "react-scripts-ts": "3.1.0"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
+    "watchServer": "nodemon --watch dist/index.js dist/index",
+    "watchBuild": "nodemon -e ts,tsx --watch server --watch src --exec \"npm run build\"",
+    "start": "npm run watchBuild & npm run watchServer",
+    "build": "concurrently \"react-scripts-ts build\"  \"./node_modules/.bin/tsc -p server\"",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
+    "@types/express": "^4.16.0",
     "@types/jest": "^23.3.2",
     "@types/node": "^10.11.3",
     "@types/puppeteer": "^1.6.4",
     "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.8",
+    "concurrently": "^4.0.1",
     "express": "^4.16.3",
+    "gitstar-components": "^1.0.5",
+    "nodemon": "^1.18.4",
     "puppeteer": "^1.8.0",
     "typescript": "^3.1.1",
     "wappalyzer": "^5.5.1"
