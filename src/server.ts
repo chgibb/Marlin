@@ -5,8 +5,8 @@ import * as express from "express";
 const bodyParser = require("body-parser");
 const Wappalyzer = require("wappalyzer");
 
-import {BasicURLInfo} from "./../src/basicURLInfo";
-import {RequestBasicURLInfoParams} from "./../src/requestBasicURLInfo";
+import { BasicURLInfo} from "./basicURLInfo";
+import { RequestBasicURLInfoParams } from "./requestBasicURLInfo";
 import { WappalyzeResult } from './wappalyzeResult';
 import { RequestWappalyzeParams } from './requestWappalyze';
 
@@ -16,8 +16,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 const port = process.env.PORT || 5000;
-
-console.log("hello world with changes round 3");
 
 app.get('/basicURLInfo', async(req, res) => {
   console.log(req.query);

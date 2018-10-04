@@ -7,10 +7,10 @@ import { SearchBox } from "./searchBox";
 import { NetworkRequestInfo } from "./networkRequestInfo";
 import { RemoteAddressInfo } from "./remoteAddressInfo";
 import { requestBasicURLInfo } from "./requestBasicURLInfo";
-import './App.css';
 import { BasicURLInfo } from './basicURLInfo';
 import { requestWappalyze } from './requestWappalyze';
 import { WappalyzeResult } from './wappalyzeResult';
+import './App.css';
 
 class AppState
 {
